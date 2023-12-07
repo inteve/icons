@@ -1,0 +1,26 @@
+{
+	"name": "inteve/icons",
+	"type": "library",
+	"description": "Icons loader for web-apps",
+	"license": "BSD-3-Clause",
+	"authors": [
+		{
+			"name": "Jan Pecha",
+			"homepage": "https://www.janpecha.cz/"
+		}
+	],
+	"funding": [
+		{"type": "other", "url": "https://www.janpecha.cz/donate/"}
+	],
+	"require": {
+		"php": "7.4 - 8.2",
+		"nette/utils": "^2.4 || ^3.0 || ^4.0",
+		"phig/phig": "^1.0"
+	},
+	"autoload": {
+		"classmap": ["src/"]
+	},
+	"require-dev": {
+		"nette/tester": "^2.4"
+	}
+}
