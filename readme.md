@@ -25,16 +25,57 @@ Inteve\Icons requires PHP 7.4.0 or later.
 
 This library is implementation of [PHIG's](https://github.com/phig-org/phig) `HtmlIcons` interface.
 
+
 ### InlineSvgIcons
 
 ``` php
-$icons = new \Inteve\Icons\InlineSvgIcons($iconsDirectory)
+$icons = new \Inteve\Icons\InlineSvgIcons($iconsDirectory);
 echo $icons->get('my-icon'); // finds file "$iconsDirectory/my-icon.svg", prints <svg ...>...</svg>
 ```
 
+
 ### ImgIcons
 
+``` php
+$icons = new \Inteve\Icons\ImgIcons($publicUrlPath, $fileExtension, $htmlClass = 'icon');
+echo $icons->get('my-icon'); // prints <img src="/path/to/my-icon.ext" class="icon" alt="">
+echo $icons->get('my-icon@small'); // prints <img src="/path/to/my-icon.ext" class="icon icon--small" alt="">
+```
 
+
+### InlineStyleIcons
+
+``` php
+$icons = new \Inteve\Icons\InlineStyleIcons($publicUrlPath, $fileExtension, $htmlClass = 'icon', $tagName = 'i');
+echo $icons->get('my-icon'); // prints <i class="icon" style="background-image:url(/path/to/my-icon.ext)"></i>
+echo $icons->get('my-icon@small'); // prints <i class="icon icon--small" style="background-image:url(/path/to/my-icon.ext)"></i>
+```
+
+
+### WrappedIcons
+
+``` php
+$svgIcons = new \Inteve\Icons\InlineSvgIcons($iconsDirectory);
+$icons = new \Inteve\Icons\WrappedIcons($svgIcons, $className = 'icon', $tagName = 'i');
+echo $icons->get('my-icon'); // prints <i class="icon"><svg ...>...</svg></i>
+echo $icons->get('my-icon@small'); // prints <i class="icon icon-small"><svg ...>...</svg></i>
+```
+
+
+### PrefixedIcons
+
+``` php
+$icons = new \Inteve\Icons\PrefixedIcons(
+	icons: [
+		'legacy' => new ImgIcons($publicUrlPath, $fileExtension),
+		'bootstrap' => new \Inteve\Icons\InlineSvgIcons($bootstrapIconsDirectory),
+	],
+	defaultIcons: new \Inteve\Icons\InlineSvgIcons($iconsDirectory)
+);
+echo $icons->get('my-icon'); // prints <svg ...>...</svg>
+echo $icons->get('legacy/my-icon'); // prints <img src="/path/to/my-icon.ext" class="icon" alt="">
+echo $icons->get('bootstrap/my-icon'); // prints <svg ...>...</svg>
+```
 
 ------------------------------
 
