@@ -31,4 +31,3 @@ function prepareTempDir()
 
 	return $tempDir;
 }
-
