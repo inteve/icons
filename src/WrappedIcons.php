@@ -49,7 +49,7 @@
 
 			$iconHtml = \Nette\Utils\Html::el($this->tagName)
 				->class($className)
-				->setHtml($this->icons->get($icon));
+				->setHtml((string) $this->icons->get($icon));
 
 			return new Icon((string) $iconHtml);
 		}
