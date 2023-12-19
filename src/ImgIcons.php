@@ -4,6 +4,8 @@
 
 	namespace Inteve\Icons;
 
+	use Nette\Utils\Strings;
+
 
 	/**
 	 * Generates <img> icons
@@ -16,14 +18,14 @@
 		/** @var string */
 		private $fileExtension;
 
-		/** @var string */
+		/** @var string|NULL */
 		private $className;
 
 
 		/**
 		 * @param string $publicPath
 		 * @param string $fileExtension
-		 * @param string $className
+		 * @param string|NULL $className
 		 */
 		public function __construct(
 			$publicPath,
@@ -45,16 +47,23 @@
 			// parsing icon name & size modifier icon@sm
 			if (count($parts) === 2) {
 				$icon = $parts[0];
-				$className = $className . ' ' . $className . '--' . $parts[1];
+
+				if ($className !== NULL) {
+					$className = $className . ' ' . $className . '--' . $parts[1];
+				}
 			}
 
 			if (!\Nette\Utils\Validators::is($icon, 'pattern:[a-z]([a-z0-9_-]*[a-z])?')) {
 				throw new SorryInvalidArgument('Invalid icon name: ' . $icon);
 			}
 
-			$iconHtml = \Nette\Utils\Html::el('img')
-				->class($className)
-				->src($this->publicPath . '/' . $icon . '.' . $this->fileExtension)
+			$iconHtml = \Nette\Utils\Html::el('img');
+
+			if ($className !== NULL) {
+				$iconHtml->class($className);
+			}
+
+			$iconHtml->src($this->publicPath . '/' . $icon . '.' . $this->fileExtension)
 				->alt('');
 
 			return new Icon((string) $iconHtml);
