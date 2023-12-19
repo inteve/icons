@@ -53,8 +53,12 @@
 				}
 			}
 
-			if (!\Nette\Utils\Validators::is($icon, 'pattern:[a-z]([a-z0-9_-]*[a-z])?')) {
+			if (!\Nette\Utils\Validators::is($icon, 'pattern:[a-z]([a-z0-9_.-]*[a-z])?')) {
 				throw new SorryInvalidArgument('Invalid icon name: ' . $icon);
+			}
+
+			if (!Strings::contains($icon, '.')) {
+				$icon = $icon . '.' . $this->fileExtension;
 			}
 
 			$iconHtml = \Nette\Utils\Html::el('img');
@@ -63,7 +67,7 @@
 				$iconHtml->class($className);
 			}
 
-			$iconHtml->src($this->publicPath . '/' . $icon . '.' . $this->fileExtension)
+			$iconHtml->src($this->publicPath . '/' . $icon)
 				->alt('');
 
 			return new Icon((string) $iconHtml);

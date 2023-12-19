@@ -29,3 +29,14 @@ test('No className', function () {
 	Assert::same('<img src="/public/first.png" alt="">', (string) $icons->get('first'));
 	Assert::same('<img src="/public/first.png" alt="">', (string) $icons->get('first@modifier'));
 });
+
+
+test('File extension', function () {
+	$icons = new Icons\ImgIcons(
+		'/public',
+		'png',
+		NULL
+	);
+
+	Assert::same('<img src="/public/first.gif" alt="">', (string) $icons->get('first.gif'));
+});

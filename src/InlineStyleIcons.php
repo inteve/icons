@@ -4,6 +4,8 @@
 
 	namespace Inteve\Icons;
 
+	use Nette\Utils\Strings;
+
 
 	/**
 	 * Generates <i class="icon" style="background-image: url()"> icons
@@ -60,8 +62,12 @@
 					}
 				}
 
-				if (!\Nette\Utils\Validators::is($icon, 'pattern:[a-z]([a-z0-9_-]*[a-z])?')) {
+				if (!\Nette\Utils\Validators::is($icon, 'pattern:[a-z]([a-z0-9_.-]*[a-z])?')) {
 					throw new SorryInvalidArgument('Invalid icon name: ' . $icon);
+				}
+
+				if (!Strings::contains($icon, '.')) {
+					$icon = $icon . '.' . $this->fileExtension;
 				}
 
 				$iconHtml = \Nette\Utils\Html::el($this->tagName);
@@ -70,7 +76,7 @@
 					$iconHtml->class($className);
 				}
 
-				$iconHtml->style('background-image', 'url(' . $this->publicPath . '/' . $icon . '.' . $this->fileExtension . ')');
+				$iconHtml->style('background-image', 'url(' . $this->publicPath . '/' . $icon . ')');
 
 				$this->icons[$icon] = new Icon((string) $iconHtml);
 			}

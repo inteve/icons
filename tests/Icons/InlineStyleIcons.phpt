@@ -29,3 +29,13 @@ test('No className', function () {
 	Assert::same('<i style="background-image:url(/public/first.png)"></i>', (string) $icons->get('first'));
 	Assert::same('<i style="background-image:url(/public/first.png)"></i>', (string) $icons->get('first@small'));
 });
+
+
+test('File extension', function () {
+	$icons = new Icons\InlineStyleIcons(
+		'/public',
+		'png'
+	);
+
+	Assert::same('<i class="icon" style="background-image:url(/public/first.gif)"></i>', (string) $icons->get('first.gif'));
+});
