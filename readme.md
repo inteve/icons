@@ -18,7 +18,7 @@ Icons loader for web-apps.
 composer require inteve/icons
 ```
 
-Inteve\Icons requires PHP 7.4.0 or later.
+Inteve\Icons requires PHP 8.0 or later.
 
 
 ## Usage
