@@ -18,6 +18,7 @@ function test(string $description, Closure $closure): void
  */
 function prepareTempDir()
 {
+	/** @var array<string, bool> $dirs */
 	static $dirs = [];
 
 	@mkdir(__DIR__ . '/temp/');  # @ - directory may already exist
